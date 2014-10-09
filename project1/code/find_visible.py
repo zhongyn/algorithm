@@ -116,7 +116,7 @@ def FindVisible_3(m, b):
 		for j in range(len(SubVis),1,-1):
 			# Compare Yi(x) with Y(x), where (x,Y) is the 
 			# intersection point of Y[SubVis[j]] and Y[SubVis[j-1]]
-			tem = (m[SubVis[j]]-m[i])*(b[SubVis[j-1]]-b[SubVis[j]) - (b[i]-b[SubVis[j]])*(m[SubVis[j]]-m[SubVis[j-1]])
+			tem = (m[SubVis[j]]-m[i])*(b[SubVis[j-1]]-b[SubVis[j]]) - (b[i]-b[SubVis[j]])*(m[SubVis[j]]-m[SubVis[j-1]])
 			if tem > 0: break
 			del SubVis[i]
 		# add the last line into the visible subset
