@@ -66,9 +66,64 @@
 #---------------------------------------------------
 
 def FindVisible_1(m, b):
-	n = len(M)
-	v = 
+	# m is sorted slope array
+	n = len(m)
+	v = [True] * n
+	# If there are only two lines, both are visible
+	if n <= 2: return v
 
+	# Loop through each triple to find the invisible lines
+	for i in range(1,n-1):
+		for j in range(0,i):
+			for k in range(i+1,n):
+				# Compare Yi(x) with Y(x), where (x,Y) is the 
+				# intersection point of Yj and Yk
+				tem = (m[j]-m[i])*(b[k]-b[j]) - (b[i]-b[j])*(m[j]-m[k])
+				if tem > 0: v[i] = False
+	return v
+
+
+def FindVisible_2(m, b):
+	# m is sorted slope array
+	n = len(m)
+	v = [True] * n
+	# If there are only two lines, both are visible
+	if n <= 2: return v
+
+	# Loop through each triple to find the invisible lines
+	# Skip loop if the line is invisible
+	for i in range(1,n-1):
+		for j in range(0,i):
+			for k in range(i+1,n):
+				if v[i] == False: break
+				# Compare Yi(x) with Y(x), where (x,Y) is the 
+				# intersection point of Yj and Yk
+				tem = (m[j]-m[i])*(b[k]-b[j]) - (b[i]-b[j])*(m[j]-m[k])
+				if tem > 0: v[i] = False
+			if v[i] == False: break
+	return v
+
+
+def FindVisible_3(m, b):
+	# m is sorted slope array
+	n = len(m)
+	v = [False] * n
+	# If there are only two lines, both are visible
+	if n <= 2: return [True,True]
+
+	SubVis = [0,1]
+	for i in range(2,n):
+		for j in range(len(SubVis),1,-1):
+			# Compare Yi(x) with Y(x), where (x,Y) is the 
+			# intersection point of Y[SubVis[j]] and Y[SubVis[j-1]]
+			tem = (m[SubVis[j]]-m[i])*(b[SubVis[j-1]]-b[SubVis[j]) - (b[i]-b[SubVis[j]])*(m[SubVis[j]]-m[SubVis[j-1]])
+			if tem > 0: break
+			del SubVis[i]
+		# add the last line into the visible subset
+		SubVis.append(i)
+
+	for k in SubVis: v[k] = True
+	return v
 
 
 
