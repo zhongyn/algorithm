@@ -49,8 +49,8 @@
 #
 #	SubVis = [1, 2]
 #	for i = 3, i <= n, i++:
-#		for j = len(SubVis), j > 2, j--:
-#			(x, y) = Intersection point of line Y[SubVis[j]] and Y[SubVis[j-1]]
+#		while len(SubVis) > 1
+#			(x, y) = Intersection point of line Y[SubVis[-1]] and Y[SubVis[-2]]]
 #			if y > M[i]*x + B[i]: 
 #				break
 #			else:
@@ -117,7 +117,7 @@ def FindVisible_3(m, b):
 			# Compare Yi(x) with Y(x), where (x,Y) is the 
 			# intersection point of Y[SubVis[j]] and Y[SubVis[j-1]]
 			tem = (m[SubVis[-1]]-m[i])*(b[SubVis[-2]]-b[SubVis[-1]]) - (b[i]-b[SubVis[-1]])*(m[SubVis[-1]]-m[SubVis[-2]])
-			if tem > 0: break
+			if tem >= 0: break
 			del SubVis[-1]
 		SubVis.append(i)
 		# add the last line into the visible subset
