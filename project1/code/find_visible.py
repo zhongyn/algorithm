@@ -79,7 +79,7 @@ def FindVisible_1(m, b):
 				# Compare Yi(x) with Y(x), where (x,Y) is the 
 				# intersection point of Yj and Yk
 				tem = (m[j]-m[i])*(b[k]-b[j]) - (b[i]-b[j])*(m[j]-m[k])
-				if tem > 0: v[i] = False
+				if tem < 0: v[i] = False
 	return v
 
 
@@ -99,7 +99,7 @@ def FindVisible_2(m, b):
 				# Compare Yi(x) with Y(x), where (x,Y) is the 
 				# intersection point of Yj and Yk
 				tem = (m[j]-m[i])*(b[k]-b[j]) - (b[i]-b[j])*(m[j]-m[k])
-				if tem > 0: v[i] = False
+				if tem < 0: v[i] = False
 			if v[i] == False: break
 	return v
 
@@ -113,14 +113,14 @@ def FindVisible_3(m, b):
 
 	SubVis = [0,1]
 	for i in range(2,n):
-		for j in range(len(SubVis),1,-1):
+		while len(SubVis) > 1:
 			# Compare Yi(x) with Y(x), where (x,Y) is the 
 			# intersection point of Y[SubVis[j]] and Y[SubVis[j-1]]
-			tem = (m[SubVis[j]]-m[i])*(b[SubVis[j-1]]-b[SubVis[j]]) - (b[i]-b[SubVis[j]])*(m[SubVis[j]]-m[SubVis[j-1]])
+			tem = (m[SubVis[-1]]-m[i])*(b[SubVis[-2]]-b[SubVis[-1]]) - (b[i]-b[SubVis[-1]])*(m[SubVis[-1]]-m[SubVis[-2]])
 			if tem > 0: break
-			del SubVis[i]
-		# add the last line into the visible subset
+			del SubVis[-1]
 		SubVis.append(i)
+		# add the last line into the visible subset
 
 	for k in SubVis: v[k] = True
 	return v
