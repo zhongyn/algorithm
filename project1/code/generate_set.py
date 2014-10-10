@@ -1,4 +1,7 @@
 import random
 
-def generate_set(n):
-	set = random.sample(range(-n,n),n)
+def generate_data(n):
+	slope = random.sample(range(-n,n),n)
+	slope.sort()
+	intersect = random.sample(range(-n,n),n)
+	return [slope, intersect]

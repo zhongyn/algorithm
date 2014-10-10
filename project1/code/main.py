@@ -1,6 +1,8 @@
 import read_data as rd
 import find_visible as fv
+import generate_set as gs
 import json
+import time
 
 # read data from test files
 test_set = rd.read_data('../data/test_set.txt')
@@ -35,3 +37,12 @@ for instance in exp_test:
 	result = fv.FindVisible_3(instance[0],instance[1])
 	exp_result.write(json.dumps(result)+'\n')
 exp_result.close()
+
+# running time analysis
+size = range(100,1000,100)+range(1000,10000,1000)
+for n in size:
+	data = gs.generate_data(n)
+	start = time.time()
+	result = fv.FindVisible_2(data[0],data[1])
+	end = time.time()-start
+	print 'Time: '+str(end)+'\n'
