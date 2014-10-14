@@ -44,14 +44,14 @@
 # FindVisible_3(M[1..n], B[1..n])
 #	n = len(M)
 #	Initialize each line as visible:
-#		V[i] = True, i = 1..n
+#		V[i] = False, i = 1..n
 #	if n <= 2: return V
 #
 #	SubVis = [1, 2]
 #	for i = 3, i <= n, i++:
 #		while len(SubVis) > 1
 #			(x, y) = Intersection point of line Y[SubVis[-1]] and Y[SubVis[-2]]]
-#			if y > M[i]*x + B[i]: 
+#			if y >= M[i]*x + B[i]: 
 #				break
 #			else:
 #				Remove SubVis[j] from SubVis
@@ -124,33 +124,6 @@ def FindVisible_3(m, b):
 
 	for k in SubVis: v[k] = True
 	return v
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

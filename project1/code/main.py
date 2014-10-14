@@ -43,6 +43,6 @@ size = range(100,1000,100)+range(1000,10000,1000)
 for n in size:
 	data = gs.generate_data(n)
 	start = time.time()
-	result = fv.FindVisible_2(data[0],data[1])
+	result = fv.FindVisible_3(data[0],data[1])
 	end = time.time()-start
 	print 'Time: '+str(end)+'\n'
