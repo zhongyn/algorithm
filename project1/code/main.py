@@ -41,29 +41,37 @@ exp_result.close()
 #running time analysis
 size1 = range(100,1000,100) 
 size = range(100,1000,100)+range(1000,10000,1000)
-runtime = [[]]*3
-plotdata = [size]
+runtime1 = []
+runtime2 = []
+runtime3 = []
 
-for index, n in enumerate(size):
+print '\nAlg 1:'
+for n in size1:
 	data = hf.generate_data(n)
+	start = time.time()
+	result = fv.FindVisible_1(data[0],data[1])
+	end = time.time()-start
+	runtime1.append(end)
+	print 'Time: '+str(end)
 
-	print 'data set: '+str(n)+' lines'
-	if index < 10:		
-		start = time.time()
-		result = fv.FindVisible_1(data[0],data[1])
-		end = time.time()-start
-		runtime[0].append(end)
-
+print '\nAlg 2:'
+for n in size:
+	data = hf.generate_data(n)
 	start = time.time()
 	result = fv.FindVisible_2(data[0],data[1])
 	end = time.time()-start
-	runtime[1].append(end)
+	runtime2.append(end)
+	print 'Time: '+str(end)
 
+print '\nAlg 3:'
+for n in size:
+	data = hf.generate_data(n)
 	start = time.time()
 	result = fv.FindVisible_3(data[0],data[1])
 	end = time.time()-start
-	runtime[2].append(end)
+	runtime3.append(end)
+	print 'Time: '+str(end)
 
-plotdata.append(runtime)
-plot_data.write(json.dumps(plotdata))
+plotdata = [size, runtime1, runtime2, runtime3]
+json.dump(plotdata, plot_data)
 plot_data.close()
