@@ -1,13 +1,13 @@
-import read_data as rd
+import help_func as hf
 import find_visible as fv
-import generate_set as gs
 import json
 import time
 
 # read data from test files
-test_set = rd.read_data('../data/test_set.txt')
-exp_test = rd.read_data('../data/solve_these.txt')
-exp_result = open('../data/test_result.txt', 'w+')
+test_set = hf.read_data('../data/test_set.txt')
+exp_test = hf.read_data('../data/solve_these.txt')
+exp_result = open('../data/solution.txt', 'w+')
+plot_data = open('../data/plotdata.txt', 'w+')
 
 # test case of two lines
 two_line = [[1,4],[2,-2]]
@@ -35,14 +35,44 @@ print 'Fail:\nTest_1: '+str(fail[0])+'\nTest_2: '+str(fail[1])+'\nTest_3: '+str(
 # run experiment test
 for instance in exp_test:
 	result = fv.FindVisible_3(instance[0],instance[1])
-	exp_result.write(json.dumps(result)+'\n')
+	exp_result.write(hf.format_solution(json.dumps(result))+'\n')
 exp_result.close()
 
-# running time analysis
+#running time analysis
+size1 = range(100,1000,100) 
 size = range(100,1000,100)+range(1000,10000,1000)
+runtime = []
+plotdata = [size]
+
+print 'Algorithm 1\n'
+for n in size1:
+	data = hf.generate_data(n)
+	start = time.time()
+	result = fv.FindVisible_1(data[0],data[1])
+	end = time.time()-start
+	runtime.append(end)
+	print 'Time: '+str(end)+'\n'
+plotdata.append(runtime)
+
+print 'Algorithm 2\n'
 for n in size:
-	data = gs.generate_data(n)
+	data = hf.generate_data(n)
+	start = time.time()
+	result = fv.FindVisible_2(data[0],data[1])
+	end = time.time()-start
+	runtime.append(end)
+	print 'Time: '+str(end)+'\n'
+plotdata.append(runtime)
+
+print 'Algorithm 3\n'
+for n in size:
+	data = hf.generate_data(n)
 	start = time.time()
 	result = fv.FindVisible_3(data[0],data[1])
 	end = time.time()-start
+	runtime.append(end)
 	print 'Time: '+str(end)+'\n'
+plotdata.append(runtime)
+
+plot_data.write(json.dumps(plotdata))
+plot_data.close()
