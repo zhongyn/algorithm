@@ -7,7 +7,7 @@ import time
 test_set = hf.read_data('../data/test_set.txt')
 exp_test = hf.read_data('../data/solve_these.txt')
 exp_result = open('../data/solution.txt', 'w+')
-plot_data = open('../data/plotdata.txt', 'w+')
+plot_data = open('../data/plotdata.json', 'w+')
 
 # test case of two lines
 two_line = [[1,4],[2,-2]]
@@ -41,38 +41,29 @@ exp_result.close()
 #running time analysis
 size1 = range(100,1000,100) 
 size = range(100,1000,100)+range(1000,10000,1000)
-runtime = []
+runtime = [[]]*3
 plotdata = [size]
 
-print 'Algorithm 1\n'
-for n in size1:
+for index, n in enumerate(size):
 	data = hf.generate_data(n)
-	start = time.time()
-	result = fv.FindVisible_1(data[0],data[1])
-	end = time.time()-start
-	runtime.append(end)
-	print 'Time: '+str(end)+'\n'
-plotdata.append(runtime)
 
-print 'Algorithm 2\n'
-for n in size:
-	data = hf.generate_data(n)
+	print 'data set: '+str(n)+' lines'
+	if index < 10:		
+		start = time.time()
+		result = fv.FindVisible_1(data[0],data[1])
+		end = time.time()-start
+		runtime[0].append(end)
+
 	start = time.time()
 	result = fv.FindVisible_2(data[0],data[1])
 	end = time.time()-start
-	runtime.append(end)
-	print 'Time: '+str(end)+'\n'
-plotdata.append(runtime)
+	runtime[1].append(end)
 
-print 'Algorithm 3\n'
-for n in size:
-	data = hf.generate_data(n)
 	start = time.time()
 	result = fv.FindVisible_3(data[0],data[1])
 	end = time.time()-start
-	runtime.append(end)
-	print 'Time: '+str(end)+'\n'
-plotdata.append(runtime)
+	runtime[2].append(end)
 
+plotdata.append(runtime)
 plot_data.write(json.dumps(plotdata))
 plot_data.close()
