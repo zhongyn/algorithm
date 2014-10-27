@@ -3,75 +3,14 @@ import find_visible as fv
 import json
 import time
 
+
 # read data from test files
 test_set = hf.read_data('../data/test_set.txt')
-exp_test = hf.read_data('../data/solve_these.txt')
-exp_result = open('../data/solution.txt', 'w+')
-plot_data = open('../data/plotdata.json', 'w+')
+lines_set = hf.read_line(test_set)
 
-# test case of two lines
-two_line = [[1,4],[2,-2]]
-test = fv.FindVisible_1(two_line[0],two_line[1])
-print 'Test:   '+ str(test)
-print 'Answer: [True, True]\n'
+# test = fv.FindVisible_4(lines_set[2])
 
-# run test_set
-fail = [0,0,0]
-for instance in test_set:
-	test_1 = fv.FindVisible_1(instance[0],instance[1])
-	test_2 = fv.FindVisible_2(instance[0],instance[1])
-	test_3 = fv.FindVisible_3(instance[0],instance[1])
-	print 'Test_1: '+str(test_1)
-	print 'Test_2: '+str(test_2)
-	print 'Test_3: '+str(test_3)
-	print 'Answer: '+str(instance[2])+'\n'
-	if test_1!=instance[2]: fail[0]+=1
-	if test_2!=instance[2]: fail[1]+=1
-	if test_3!=instance[2]: fail[2]+=1
+for lines in lines_set:
+	test_1 = fv.FindVisible_4(lines)
+	hf.print_visible(test_1)
 
-print 'Total number of test set: '+str(len(test_set))
-print 'Fail:\nTest_1: '+str(fail[0])+'\nTest_2: '+str(fail[1])+'\nTest_3: '+str(fail[2])+'\n'
-
-# run experiment test
-for instance in exp_test:
-	result = fv.FindVisible_3(instance[0],instance[1])
-	exp_result.write(hf.format_solution(json.dumps(result))+'\n')
-exp_result.close()
-
-#running time analysis
-size1 = range(100,1000,100) 
-size = range(100,1000,100)+range(1000,10000,1000)
-runtime1 = []
-runtime2 = []
-runtime3 = []
-
-print '\nAlg 1:'
-for n in size1:
-	data = hf.generate_data(n)
-	start = time.time()
-	result = fv.FindVisible_1(data[0],data[1])
-	end = time.time()-start
-	runtime1.append(end)
-	print 'Time: '+str(end)
-
-print '\nAlg 2:'
-for n in size:
-	data = hf.generate_data(n)
-	start = time.time()
-	result = fv.FindVisible_2(data[0],data[1])
-	end = time.time()-start
-	runtime2.append(end)
-	print 'Time: '+str(end)
-
-print '\nAlg 3:'
-for n in size:
-	data = hf.generate_data(n)
-	start = time.time()
-	result = fv.FindVisible_3(data[0],data[1])
-	end = time.time()-start
-	runtime3.append(end)
-	print 'Time: '+str(end)
-
-plotdata = [size, runtime1, runtime2, runtime3]
-json.dump(plotdata, plot_data)
-plot_data.close()

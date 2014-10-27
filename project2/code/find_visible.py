@@ -193,27 +193,27 @@ def FindVisible_4(lines):
 	m = n/2
 	left = FindVisible_4(lines[:m])
 	right = FindVisible_4(lines[m:])
+	print 'len(right): '+str(len(right))
+	print 'len(left): '+str(len(left))
 	result =  MergeVisible(left, right)
 	return result
 
-
 def MergeVisible(left, right):
 	li = ri = 0
-	while li<len(left):
+	while li<len(left)-1 and ri<len(right)-1:
 		if CompareCross(left[li],left[li+1],right[ri],right[ri+1]):
-			if IsAbove(left[li],left[li+1],right[ri]):
+			if IsAboveEqual(left[li],left[li+1],right[ri]):
 				li += 1
-				ri += 1
 			else: break
 		else:
 			ri += 1
 	targetL = li
+	print 'targetL: '+str(targetL)
 
 	li = ri = 0
-	while ri<len(right):
+	while ri<len(right)-1 and li <len(left)-1:
 		if CompareCross(right[ri],right[ri+1],left[li],left[li+1]):
-			if not IsAbove(right[ri],right[ri+1],left[li]):
-				li += 1
+			if not IsAboveEqual(right[ri],right[ri+1],left[li]):
 				ri += 1
 			else: break
 		else:
@@ -222,23 +222,20 @@ def MergeVisible(left, right):
 
 	return left[:targetL+1]+right[targetR:]
 
-
 def IsAbove(l1,l2,l3):
 	# verify that whether the cross point of line1 and line2
 	# is above line3.
-	tem = (l1.m-l3.m)*(l2.b-l1.b) - (l3.b-l1.b)*(l1.m-l2.m)
-	if tem < 0:
-		return True
+	return (l1.m-l3.m)*(l2.b-l1.b) - (l3.b-l1.b)*(l1.m-l2.m) < 0
 
+def IsAboveEqual(l1,l2,l3):
+	# verify that whether the cross point of line1 and line2
+	# is above or on line3.
+	return (l1.m-l3.m)*(l2.b-l1.b) - (l3.b-l1.b)*(l1.m-l2.m) <= 0
 
 def CompareCross(l1,l2,l3,l4):
 	# compare the x value of two cross points, 
 	# P1 between l1 and l2, P2 between l3 and l4.
-	tem = (l3.m-l4.m)*(l2.b-l1.b) - (l1.m-l2.m)*(l4.b-l3.b)
-	if tem <= 0:
-		# P1x <= P2x
-		return True
-
+	return (l3.m-l4.m)*(l2.b-l1.b) - (l1.m-l2.m)*(l4.b-l3.b) <= 0
 
 
 
