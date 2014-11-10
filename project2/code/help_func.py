@@ -23,14 +23,26 @@ def generate_data(n):
 	intersect = random.sample(range(-n,n),n)
 	return [slope, intersect]
 
-def read_line(test_set):
+def create_line(test_set):
 	lines_set = []
 	for instance in test_set:
 		lines = [line(i,instance[0][i],instance[1][i]) for i in range(len(instance[0]))]
 		lines_set.append(lines)
 	return lines_set
 
-def print_visible(lines):
-	print 'visible line:'
+def create_line_new(data):
+	return [line(i,slope,data[1][i]) for i, slope in enumerate(data[0])]
+
+def bool_list(lines, n):
+	result = [False]*n
 	for l in lines:
-		print l.id
+		result[l.id] = True
+	return result 
+
+
+
+
+
+
+
+

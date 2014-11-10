@@ -67,8 +67,13 @@
 #-----------------------
 
 # FindVisible_4(Lines[1..n])
-# 	if n == 1:
-# 		return Lines[1]
+# 	if n <= 2:
+# 		return Lines[1..n]
+#	if n == 3:
+#		if the cross point of Lines[1] and Lines[3] is above Line[2]:
+#			return Lines[1]+Lines[3]
+#		else:
+#			return Lines[1..n]
 # 	m = n/2
 # 	left = FindVisible_4(Lines[1..m])
 # 	right = FindVisible_4(Lines[m+1..n])
@@ -76,38 +81,32 @@
 # 	return result
 #
 # MergeVisible(L[1..a], R[1..b])
-# 	LPts = endpoints of the visible line segments in L
-# 	RPts = endpoints of the visible line segments in R
-#
 # 	Li = Ri = 1
-# 	targetL = 1
-# 	while Li <= len(LPts):
-# 		(P1x, P1y) = LPts[Li]
-# 		(P2x, P2y) = RPts[Ri]
+# 	while Li < len(L) and Ri < len(R):
+#		(P1x, P1y) <- the cross point of L[Li] and L[Li+1]
+#		(P2x, P2y) <- the cross point of R[Ri] and R[Ri+1]
 # 		if P1x <= P2x:
-# 			if (P1x, P1y) is above line segment R[Ri]:
+# 			if (P1x, P1y) is above or in the line R[Ri]:
 # 				Li = Li + 1
-# 				Ri = Ri + 1
 # 			else:
-# 				targetL = Li
 # 				break
 # 		else:
 # 			Ri = Ri + 1
+# 	targetL = Li
 #
 # 	Li = Ri = 1
-# 	targetR = b
-# 	while Ri <=len(RPts):
-# 		(P1x, P1y) = LPts[Li]
-# 		(P2x, P2y) = RPts[Ri]
+# 	while Li < len(L) and Ri < len(R):
+#		(P1x, P1y) <- the cross point of L[Li] and L[Li+1]
+#		(P2x, P2y) <- the cross point of R[Ri] and R[Ri+1]
 # 		if P2x <= P1x:
-# 			if (P2x, P2y) is below line segment L[Li]:
-# 				Li = Li + 1
+# 			if (P2x, P2y) is below or in the line L[Li]:
 # 				Ri = Ri + 1
 # 			else:
-# 				targetR = Ri
 # 				break
 # 		else:
 # 			Li = Li + 1
+# 	targetR = Ri
+#
 # 	return L[1..targetL] + R[targetR..b]
 #---------------------------------------------------
 #---------------------------------------------------
@@ -174,13 +173,7 @@ def FindVisible_3(m, b):
 
 
 #-----------------------------------------------------
-#-----------------------------------------------------
-class line:
-	def __init__(self, index, slope, intersect):
-		self.m = slope
-		self.b = intersect
-		self.id = index		
-		
+#-----------------------------------------------------		
 def FindVisible_4(lines):
 	n = len(lines)
 	if n <= 2:
@@ -193,8 +186,6 @@ def FindVisible_4(lines):
 	m = n/2
 	left = FindVisible_4(lines[:m])
 	right = FindVisible_4(lines[m:])
-	print 'len(right): '+str(len(right))
-	print 'len(left): '+str(len(left))
 	result =  MergeVisible(left, right)
 	return result
 
@@ -208,7 +199,6 @@ def MergeVisible(left, right):
 		else:
 			ri += 1
 	targetL = li
-	print 'targetL: '+str(targetL)
 
 	li = ri = 0
 	while ri<len(right)-1 and li <len(left)-1:
