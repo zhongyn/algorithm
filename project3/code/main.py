@@ -1,21 +1,25 @@
 import maxSum as ms
 import helper as hp
 
-matrix,m,n = hp.read_data('../data/test2.txt')
-# b = hp.read_data('../data/test2.txt')
-print 'finish reading data'
 
-T = ms.maxSum(matrix,m,n)
-print 'finish compute T'
+for i in range(1,4):
 
-a,b,score = ms.findMaxScore(T,m,n)
-print 'finish find max score'
-print 'a,b,score: ',a,b,score
+	print 'test '+str(i)+':'
+	
+	matrix,m,n = hp.read_data('../data/test'+str(i)+'.txt')
+	print 'finish reading test data'
 
-stack = ms.backTrack(T,matrix,a,b)
-print 'finish backTrack'
+	T = ms.maxSum(matrix,m,n)
+	print 'finish computing T'
 
-output = hp.write_data(stack,score,'../data/output.txt')
+	a,b,score = ms.findMaxScore(T,m,n)
+	print 'finish finding max score'
+
+	stack = ms.backTrack(T,matrix,a,b)
+	print 'finish backTrack'
+
+	output = hp.write_data(stack,score,'../data/output'+str(i)+'.txt')
+	print 'finish writing output'
 
 
 
