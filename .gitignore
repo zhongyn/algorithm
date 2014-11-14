@@ -1,4 +1,5 @@
 # no calendar
 *.ics
 *.pyc
-data/test2.txt
+project3/data/test2.txt
+tsp/
