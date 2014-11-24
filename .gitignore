@@ -4,3 +4,4 @@
 project3/data/test2.txt
 tsp/
 *.pdf
+*.DS_Store
