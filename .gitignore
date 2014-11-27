@@ -2,6 +2,7 @@
 *.ics
 *.pyc
 project3/data/test2.txt
-tsp/
+tsp/papers
+tsp/tsp_presentation
 *.pdf
 *.DS_Store
