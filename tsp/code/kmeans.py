@@ -5,8 +5,8 @@ import multiprocessing as mp
 import time
 import sharedmem as shm
 
-def kmeans(data, numCluster, partition=None):
 
+def kmeans(data, numCluster, partition=None):
 	numData = len(data)
 	index = random.sample(xrange(numData), numCluster)
 	centers = data[index]
@@ -40,7 +40,6 @@ def kmeans(data, numCluster, partition=None):
 
 
 def findK(data):
-
 	k = np.arange(2,16)
 	minDist = np.empty(len(k))
 	minCenter = []
@@ -60,16 +59,14 @@ def findK(data):
 
 	np.savez("../data/findK.npz", k=k, minDist=minDist, minCenter=minCenter)
 
-def findK_parallel(data):
 
+def findK_parallel(data):
 	k = np.arange(2,16)
 	minDist = np.empty(len(k))
 	minCenter = []
 	runs = 10
 	processes = 4
 	pool = mp.Pool(processes)
-	# shdata = shm.empty((len(data),2))
-	# shdata[:] = data
 
 	t = time.time()
 	for i, item in enumerate(k):
@@ -87,8 +84,8 @@ def findK_parallel(data):
 
 	np.savez("../data/findK.npz", k=k, minDist=minDist, minCenter=minCenter)
 
-def findKplot(data):
 
+def findKplot(data):
 	with np.load("../data/findK.npz") as result:
 		k = result["k"]
 		minDist = result["minDist"]
