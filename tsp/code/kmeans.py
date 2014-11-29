@@ -3,7 +3,6 @@ import random
 import matplotlib.pyplot as pl
 import multiprocessing as mp
 import time
-import sharedmem as shm
 
 
 def kmeans(data, numCluster, partition=None):

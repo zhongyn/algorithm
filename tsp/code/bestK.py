@@ -1,6 +1,7 @@
 import kmeans as km
 import numpy as np
 
+
 data = np.loadtxt('../data/example-input-3.txt', delimiter=' ')
 points = data[:,1:]
 

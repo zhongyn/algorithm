@@ -4,5 +4,6 @@
 project3/data/test2.txt
 tsp/papers
 tsp/tsp_presentation
+tsp/data
 *.pdf
 *.DS_Store
