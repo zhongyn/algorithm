@@ -2,7 +2,7 @@ import kmeans as km
 import numpy as np
 
 
-data = np.loadtxt('../data/example-input-3.txt', delimiter=' ')
+data = np.loadtxt('../data/example-input-2.txt')
 points = data[:,1:]
 
 km.findK_parallel(points)

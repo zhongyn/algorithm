@@ -97,7 +97,7 @@ def findKplot(data):
 	ax1.set_xlabel('k',size=16)
 	ax1.set_ylabel('Minimum Sum of Squared Distance',size=16)
 
-	knees = np.array([[2,5],[10,12]])
+	knees = np.array([[2,6],[10,14]])
 	kindex = knees-2
 
 	f,axarr = pl.subplots(2,2)

@@ -10,11 +10,11 @@ def distanceMatrix(data):
 	return result
 
 
-data = np.loadtxt('../data/partition-3.txt', delimiter=' ', dtype=int)
+data = np.loadtxt('../data/partition-1.txt', delimiter=' ', dtype=int)
 k = len(np.unique(data[:,3]))
 PROCESS = 4
 pool = mp.Pool(PROCESS)
 
 result = [pool.apply(distanceMatrix, (data[data[:,3]==i],)) for i in range(k)]
 print result
-np.save('../data/distance_matrix.npy', np.array(result))
+np.save('../data/distance-matrix-1.npy', np.array(result))

@@ -29,6 +29,13 @@ def nearNeighbor(distance_matrix):
 
 	return result
 
+def distanceMatrix(data):
+	n = len(data)
+	result = np.empty((n,n),dtype=int)
+	for i, item in enumerate(data):
+		result[i] = np.rint(np.sqrt(np.sum((item-data)**2,axis=1)))
+	return result
+
 class segment(object):
 	"""docstring for segment"""
 	def __init__(self, begin, end):
@@ -88,6 +95,16 @@ def linkCluster(clusters, con_seg, total):
 		start = end
 	return tour
 	
+def tour_distance(tour,points):
+	dist = 0
+	start = points[tour[0]][1:3]
+	for i in range(1,len(tour)):
+		next = points[tour[i]][1:3]
+		dist += distance(start,next)
+		start = next
+	back = distance(points[tour[-1]][1:3],points[tour[0]][1:3])
+	return int(dist+back)
+
 
 if __name__ == '__main__':
 	test = np.array([[0,3,2],[3,0,4],[2,4,0]])

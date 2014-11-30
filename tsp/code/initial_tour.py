@@ -3,8 +3,8 @@ import multiprocessing as mp
 import numpy as np
 
 # load partition data for all points and distance matrix for all clusters
-points = np.loadtxt('../data/partition-3.txt', delimiter=' ', dtype=int)
-distance_matrix = np.load('../data/distance_matrix.npy')
+points = np.loadtxt('../data/partition-1.txt', delimiter=' ', dtype=int)
+distance_matrix = np.load('../data/distance-matrix-1.npy')
 
 # partition label
 label = points[:,3]
@@ -33,12 +33,15 @@ print con_seg
 
 # connect all cluster into a tour
 tour = nn.linkCluster(result, con_seg, len(points))
+distance = nn.tour_distance(tour, points)
 print 'initial tour:'
 print tour
 print 'lenth of initial tour:'
 print len(tour)
+print 'distance of initial tour:'
+print distance
 
-np.savetxt('../data/init_tour.txt',tour)
-
-
+distance = np.array([distance])
+solution = np.concatenate([distance,tour])
+np.savetxt('../data/solution-1.txt',solution,fmt='%1d')
 
