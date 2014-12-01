@@ -78,7 +78,7 @@ def connecting(data):
 
 def linkCluster(clusters, con_seg, total):
 	# init an empty tour
-	tour = np.empty(total,dtype=int)
+	tour = np.empty(total+1,dtype=int)
 	start = 0
 	end = 0
 
@@ -93,6 +93,7 @@ def linkCluster(clusters, con_seg, total):
 		else:
 			tour[start:end] = clu[::-1]
 		start = end
+	tour[-1] = con_seg[0][0]
 	return tour
 	
 def tour_distance(tour,points):
@@ -102,8 +103,7 @@ def tour_distance(tour,points):
 		next = points[tour[i]][1:3]
 		dist += distance(start,next)
 		start = next
-	back = distance(points[tour[-1]][1:3],points[tour[0]][1:3])
-	return int(dist+back)
+	return int(dist)
 
 
 if __name__ == '__main__':

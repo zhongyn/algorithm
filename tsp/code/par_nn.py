@@ -3,7 +3,7 @@ import numpy as np
 import near_neighbor as nn
 import multiprocessing as mp
 
-def main(data, k):
+def parNN(data, k):
 	# partition by kmeans
 	points = np.empty((len(data),4), dtype=int)
 	points[:,:3] = data
@@ -40,33 +40,52 @@ def main(data, k):
 	con_seg = nn.connecting(segment_set)
 	# connect all cluster into a tour
 	tour = nn.linkCluster(cluster_tours, con_seg, len(points))
-	distance = nn.tour_distance(tour, points)
+	pool.close()
+	pool.join()
+
+	return tour
+	# distance = nn.tour_distance(tour, points)
 	# print 'initial tour:'
 	# print tour
 	# print 'lenth of initial tour:'
-	# print len(tour)
+	# print len(init_tour)
 	# print 'distance of initial tour:'
-	return distance
 
 	# distance = np.array([distance])
 	# solution = np.concatenate([distance,tour])
 	# np.savetxt('../data/solution-1.txt',solution,fmt='%1d')
 
+
+
+
 if __name__ == '__main__':
 	# load input data
 	data1 = np.loadtxt('../data/example-input-1.txt', dtype=int)
-	data2 = np.loadtxt('../data/example-input-2.txt', dtype=int)
-	data3 = np.loadtxt('../data/example-input-3.txt', dtype=int)
-	runs = 10
-	print 'example 1:'
+	# data2 = np.loadtxt('../data/example-input-2.txt', dtype=int)
+	# data3 = np.loadtxt('../data/example-input-3.txt', dtype=int)
+	# data4 = np.loadtxt('../data/brd14051.tsp',dtype=int)
+	# data5 = np.loadtxt('../data/att48.tsp',dtype=int)
+	# data6 = np.loadtxt('../data/pla7397.tsp',dtype=int)
+	# data6 = np.loadtxt('../data/fnl4461.tsp',dtype=int)
+	runs = 5
+	k = 1
+	print 'example 1,',k,'clusters'
 	for i in range(runs):
-		print main(data1, 1)/108159.0
+		print main(data1, k)/108159.0
 
-	print 'example 2:'
-	for i in range(runs):
-		print main(data2, 1)/2579.0
+	# print 'example 2,',k,'clusters'
+	# for i in range(runs):
+	# 	print main(data2, k)/2579.0
 
-	print 'example 3:'
-	for i in range(runs):
-		print main(data3, 1)/ 1573084.0
+	# print 'example 3:'
+	# for i in range(runs):
+	# 	print main(data3, 1)/ 1573084.0
+
+	# print 'example 4:'
+	# for i in range(runs):
+	# 	print main(data4, k)/ 469385.0
+
+	# print 'example 6:'
+	# for i in range(runs):
+	# 	print main(data6, k)/182566.0
 
