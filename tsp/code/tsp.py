@@ -42,9 +42,9 @@ if __name__ == '__main__':
 	# data = np.loadtxt('../data/example-input-1.txt', dtype=int)
 	# data = np.loadtxt('../data/example-input-2.txt', dtype=int)
 	# data = np.loadtxt('../data/example-input-3.txt', dtype=int)
-	data = np.loadtxt('../data/brd14051.tsp',dtype=int)
+	# data = np.loadtxt('../data/brd14051.tsp',dtype=int)
 	# data = np.loadtxt('../data/att48.tsp',dtype=int)
-	# data = np.loadtxt('../data/att532.tsp',dtype=int)
+	data = np.loadtxt('../data/att532.tsp',dtype=int)
 	# data = np.loadtxt('../data/pla7397.tsp',dtype=int)
 	# data = np.loadtxt('../data/fnl4461.tsp',dtype=int)
 
@@ -63,5 +63,5 @@ if __name__ == '__main__':
 	# 	print 'run',i,':'
 	# 	tsp(data,shDistMat,k,opt)
 
-	tsp(data, k, runs, opt[3])
+	tsp(data, k, runs, opt[5])
 

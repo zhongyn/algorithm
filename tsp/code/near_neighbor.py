@@ -99,6 +99,7 @@ def linkCluster(clusters, con_seg, total):
 def tour_distance(tour,points):
 	dist = 0
 	start = points[tour[0]][1:3]
+	print 'in tour_distance'
 	for i in range(1,len(tour)):
 		next = points[tour[i]][1:3]
 		dist += distance(start,next)
