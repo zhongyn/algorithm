@@ -75,4 +75,4 @@ def checksolution(cities, value, cityorder):
         if not(cityorder[i] == i):
             print('city not found: ', i)
 
-main(sys.argv[1], sys.argv[2])
+# main(sys.argv[1], sys.argv[2])

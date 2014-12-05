@@ -6,16 +6,16 @@ def opt2(distMat, tour):
 	isOptimized = True
 	n = len(tour)
 
-	bound = 200
+	bound = 100
 	k = 1
-	# while isOptimized and k<=bound:
-	while isOptimized:
+	while isOptimized and k<=bound:
+	# while isOptimized:
 		print 'round',k,':'
 		isOptimized = False
 		maxChange = 0
 		maxi = None
 		maxj = None
-		# local optimize search
+		# local optimum search
 		for i in range(n-3):
 			# up = i+150
 			# if up < n:
@@ -35,11 +35,11 @@ def opt2(distMat, tour):
 		k += 1
 	return tour
 
-# swap 2 edges
-def swap_tour(tour,i,j):
-	newtour = np.empty(len(tour),dtype=int)
-	newtour[:i+1] = tour[:i+1]
-	newtour[i+1:j+1] = tour[j:i:-1]
-	newtour[j+1:] = tour[j+1:]
-	return newtour
+# # swap 2 edges
+# def swap_tour(tour,i,j):
+# 	newtour = np.empty(len(tour),dtype=int)
+# 	newtour[:i+1] = tour[:i+1]
+# 	newtour[i+1:j+1] = tour[j:i:-1]
+# 	newtour[j+1:] = tour[j+1:]
+# 	return newtour
 
